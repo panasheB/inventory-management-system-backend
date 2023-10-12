@@ -21,6 +21,8 @@ router.get('/stats', async (req, res) => {
     const profitMargins = await calculateProfitMargins();
     const paymentMethodsStats = await getPaymentMethodsStatistics();
     const yearEarnings = await getYearEarnings();
+    const itemQuantity = await getItemQuantities();
+
 
     const dashboardStats = {
       sales_today_week_month: salesTodayWeekMonth,
@@ -36,6 +38,7 @@ router.get('/stats', async (req, res) => {
       profit_margin: profitMargins,
       payment_methods: paymentMethodsStats,
       year_earnings: yearEarnings,
+      item_quantities: itemQuantity,
     };
 
     res.status(200).json(dashboardStats);
@@ -112,22 +115,13 @@ async function getMonthlySalesAndProfit() {
     const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
     endOfMonth.setHours(23, 59, 59, 999);
   
-    console.log('Start of Month:', startOfMonth);
-    console.log('End of Month:', endOfMonth);
-  
     try {
       const transactions = await Transaction.find({
         createdAt: { $gte: startOfMonth, $lte: endOfMonth },
       }).select('itemCode quantity totalPrice');
   
-      console.log('Retrieved transactions:', transactions);
-  
       const totalSales = transactions.reduce((total, transaction) => total + transaction.totalPrice, 0);
-      console.log('Total Sales:', totalSales);
-  
       const totalProfit = await calculateTotalProfit(transactions);
-      console.log('Total Profit:', totalProfit);
-  
       return {
         total_sales: totalSales,
         total_profit: totalProfit,
@@ -274,5 +268,19 @@ async function getYearEarnings() {
     throw new Error('Failed to fetch year earnings');
   }
 }
+
+async function getItemQuantities() {
+    try {
+      const items = await Item.find();
+      const itemQuantities = items.map((item) => ({
+        name: item.name,
+        quantity: item.availableQuantity,
+      }));
+      return itemQuantities;
+    } catch (error) {
+      throw new Error('Failed to fetch item quantities');
+    }
+  }
+  
 
 module.exports = router;
