@@ -17,7 +17,10 @@ const TranscactionsSchema = new Schema({
   paymentMode: String,
   change: String,
   cumulativeAmount: String,
-  
+  casenumber:String,
+  transactionid:String,
+
+
 
 },
   { timestamps: true });
