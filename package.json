@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "env-cmd": "^10.1.0",
@@ -21,7 +22,8 @@
     "moment": "^2.29.4",
     "mongodb": "^4.11.0",
     "mongoose": "^6.12.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
