@@ -32,6 +32,7 @@ const transactions_router = require("./routes/transactions_router")
 const items_router = require("./routes/items_router")
 const dashboard_router = require("./routes/dashboard_router")
 const email_router = require("./routes/email_router")
+const whatsApp_router = require("./routes/whatsApp_router")
 
 
 //---- ROUTER APP USE IMPLEMENTATION ------
@@ -41,6 +42,8 @@ app.use(`${prefix}/transactions`,transactions_router);
 app.use(`${prefix}/items`,items_router);
 app.use(`${prefix}/dashboard`,dashboard_router);
 app.use(`${prefix}/email`, email_router);
+app.use(`${prefix}/whatsapp`, whatsApp_router);
+
 
 
 

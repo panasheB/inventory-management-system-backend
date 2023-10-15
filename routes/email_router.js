@@ -19,7 +19,7 @@ router.post('/send', async (req, res) => {
 
 async function fetchDashboardStats() {
   try {
-    const response = await axios.get('http://localhost:3000/dashboard/stats'); // Make a GET request to the dashboard route
+    const response = await axios.get('http://localhost:9000/mongo/dashboard/stats'); // Make a GET request to the dashboard route
     return response.data;
   } catch (error) {
     console.error('Error:', error);
