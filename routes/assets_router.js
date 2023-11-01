@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const AssetsModel = require("../models/assets_model");
+const ObjectId = mongoose.Types.ObjectId;
 
 // GET all assets
 router.get("/assets", async (req, res) => {
@@ -12,13 +14,23 @@ router.get("/assets", async (req, res) => {
   }
 });
 
+
 // GET a specific asset by AssetID
 router.get("/assets/:AssetID", async (req, res) => {
   try {
-    const asset = await AssetsModel.findOne({ AssetID: req.params.AssetID });
+    const assetId = req.params.AssetID;
+
+    // Check if the provided asset ID is a valid ObjectId
+    if (!ObjectId.isValid(assetId)) {
+      return res.status(400).json({ error: "Invalid Asset ID" });
+    }
+
+    const asset = await AssetsModel.findOne({ _id: new ObjectId(assetId) });
+
     if (!asset) {
       return res.status(404).json({ error: "Asset not found" });
     }
+
     res.json(asset);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
@@ -36,36 +48,32 @@ router.post("/assets", async (req, res) => {
   }
 });
 
-// PUT (update) an existing asset by AssetID
-router.put("/assets/:AssetID", async (req, res) => {
-  try {
-    const updatedAsset = await AssetsModel.findOneAndUpdate(
-      { AssetID: req.params.AssetID },
-      req.body,
-      { new: true }
-    );
-    if (!updatedAsset) {
-      return res.status(404).json({ error: "Asset not found" });
-    }
-    res.json(updatedAsset);
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
+
+
 
 // DELETE an asset by AssetID
 router.delete("/assets/:AssetID", async (req, res) => {
   try {
+    const assetId = req.params.AssetID;
+
+    // Check if the provided asset ID is a valid ObjectId
+    if (!ObjectId.isValid(assetId)) {
+      return res.status(400).json({ error: "Invalid Asset ID" });
+    }
+
     const deletedAsset = await AssetsModel.findOneAndRemove({
-      AssetID: req.params.AssetID,
+      _id: new ObjectId(assetId),
     });
+
     if (!deletedAsset) {
       return res.status(404).json({ error: "Asset not found" });
     }
+
     res.json({ message: "Asset deleted" });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 module.exports = router;
