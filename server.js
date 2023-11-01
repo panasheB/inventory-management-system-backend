@@ -29,7 +29,7 @@ const transactions_router = require("./routes/transactions_router")
 const items_router = require("./routes/items_router")
 const dashboard_router = require("./routes/dashboard_router")
 const assets_router = require("./routes/assets_router")
-const assets_maintanance_router = require("./routes/assets_maintanance")
+const assets_maintanance_router = require("./routes/assets_maintanance_router")
 const assets_trans_router = require("./routes/assets_trans_router")
 const assets_category_router = require("./routes/assets_category_router")
 
