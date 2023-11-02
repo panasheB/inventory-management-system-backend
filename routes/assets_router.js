@@ -14,6 +14,31 @@ router.get("/assets", async (req, res) => {
   }
 });
 
+// PUT (update) an existing asset record by assetID
+router.put("/assets/:assetID", async (req, res) => {
+  try {
+    const assetID = req.params.assetID;
+
+    // Check if the provided asset ID is a valid ObjectId
+    if (!ObjectId.isValid(assetID)) {
+      return res.status(400).json({ error: "Invalid Asset ID" });
+    }
+
+    const updatedAssetRecord = await AssetsModel.findOneAndUpdate(
+      { _id: new ObjectId(assetID) },
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedAssetRecord) {
+      return res.status(404).json({ error: "Asset record not found" });
+    }
+
+    res.json(updatedAssetRecord);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 
 // GET a specific asset by AssetID
 router.get("/assets/:AssetID", async (req, res) => {
