@@ -34,6 +34,13 @@ const dashboard_router = require("./routes/dashboard_router")
 const email_router = require("./routes/email_router")
 const whatsApp_router = require("./routes/whatsApp_router")
 
+const email_router = require("./routes/email_router")
+const whatsApp_router = require("./routes/whatsApp_router")
+const assets_router = require("./routes/assets_router")
+const assets_maintanance_router = require("./routes/assets_maintanance_router")
+const assets_trans_router = require("./routes/assets_trans_router")
+const assets_category_router = require("./routes/assets_category_router")
+
 
 //---- ROUTER APP USE IMPLEMENTATION ------
 
@@ -41,6 +48,14 @@ app.use(`${prefix}/predictions`,prediction_router);
 app.use(`${prefix}/transactions`,transactions_router);
 app.use(`${prefix}/items`,items_router);
 app.use(`${prefix}/dashboard`,dashboard_router);
+app.use(`${prefix}/email`, email_router);
+app.use(`${prefix}/whatsapp`, whatsApp_router);
+app.use(`${prefix}/`,assets_router);
+app.use(`${prefix}/`,assets_maintanance_router);
+app.use(`${prefix}/`,assets_trans_router);
+app.use(`${prefix}/`,assets_category_router);
+
+
 app.use(`${prefix}/email`, email_router);
 app.use(`${prefix}/whatsapp`, whatsApp_router);
 
