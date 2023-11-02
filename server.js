@@ -1,5 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const axios = require('axios');
+const nodemailer = require('nodemailer');
+
 
 require('dotenv').config()
 const app = express();
@@ -30,6 +33,9 @@ const items_router = require("./routes/items_router")
 const dashboard_router = require("./routes/dashboard_router")
 const email_router = require("./routes/email_router")
 const whatsApp_router = require("./routes/whatsApp_router")
+
+const email_router = require("./routes/email_router")
+const whatsApp_router = require("./routes/whatsApp_router")
 const assets_router = require("./routes/assets_router")
 const assets_maintanance_router = require("./routes/assets_maintanance_router")
 const assets_trans_router = require("./routes/assets_trans_router")
@@ -50,12 +56,15 @@ app.use(`${prefix}/`,assets_trans_router);
 app.use(`${prefix}/`,assets_category_router);
 
 
+app.use(`${prefix}/email`, email_router);
+app.use(`${prefix}/whatsapp`, whatsApp_router);
 
 
 
 
 
-app.listen(9000, () => {
-  console.log("Server is running at port 9000");
+
+app.listen(3061, () => {
+  console.log("Server is running at port 3061");
 });
 

@@ -32,22 +32,13 @@ router.delete("/deleteItem", async (req, res) => {
 
 router.put("/updateItemQuantity", async (req, res) => {
   const { code, quantity } = req.body; // Assuming you are sending the code and quantity from the frontend.
-
   try {
     // Find the item by its code.
     const item = await ItemsMOdel.findOne({ code });
-    console.log(item)
-
     if (!item) {
-      // return res.status(404).json({ message: "Item not found" });
     }
-
-    // Calculate the new quantity available by adding the quantity from the frontend.
     const newQuantityAvailable = item.availableQuantity + quantity;
-
-    // Update the item's quantity available.
     await ItemsMOdel.updateOne({ code }, { availableQuantity: newQuantityAvailable });
-
     res.status(200).json({ message: "Item quantity updated successfully" });
   } catch (err) {
     res.status(500).json({ message: "Internal server error", error: err.message });
