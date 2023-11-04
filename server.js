@@ -38,6 +38,8 @@ const assets_maintanance_router = require("./routes/assets_maintanance_router")
 const assets_trans_router = require("./routes/assets_trans_router")
 const assets_category_router = require("./routes/assets_category_router")
 const expense_category_router = require("./routes/expense_category_router")
+const expense_router = require("./routes/expenses_router")
+
 
 
 
@@ -54,6 +56,7 @@ app.use(`${prefix}/`,assets_maintanance_router);
 app.use(`${prefix}/`,assets_trans_router);
 app.use(`${prefix}/`,assets_category_router);
 app.use(`${prefix}/`, expense_category_router);
+app.use(`${prefix}/`, expense_router);
 
 
 app.listen(3061, () => {
